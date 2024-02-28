@@ -22,6 +22,7 @@ class HomeController extends Controller
             // 'item3',
         ];
         $this->data['number'] = 9;
+        $this->data['message'] = 'Dat Hang thanh cong';
         return view('home', $this->data);
     }
 }
