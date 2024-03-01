@@ -8,6 +8,11 @@
 @endsection
 @section('content')
 <h1>San  pham</h1>
+@push('scripts')
+    <script>
+    console.log('Push lan 2');
+    </script>
+@endpush
 @endsection
 
 @section('css')
@@ -21,6 +26,10 @@
 @endsection --}}
 
 @section('js')
-    <script>
-    </script>
 @endsection
+
+@prepend('scripts')
+    <script>
+        console.log('prepend lan 1');
+    </script>
+@endprepend
