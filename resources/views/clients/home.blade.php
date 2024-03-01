@@ -3,39 +3,20 @@
     {{$title}}
 @endsection
 @section('sidebar')
-    {{-- @parent --}}
+    @parent
     <h3>Home sidebar</h3>
 @endsection
 @section('content')
-<h1>Trang chu</h1>
-    <button type="button" class="show">Show</button>
+    <h1>Trang chu</h1>
+    @include('clients.contents.slide')
+    @include('clients.contents.about')
 @endsection
 
-{{-- @section('css')
-    header{
-        background-color: blue;
-        color: white;
-    }
-@endsection --}}
 @section('css')
-    <style>
-        header{
-        background-color: blue;
-        color: white;
-    }
-    </style>
-@endsection
 
-{{-- @section('js')
-    document.querySelector('.show').onclick = function(){
-        alert('Thanh cong');
-    }
-@endsection --}}
+@endsection
 
 @section('js')
-    <script>
-        document.querySelector('.show').onclick = function(){
-        alert('Thanh cong');
-    }
-    </script>
+
 @endsection
+
