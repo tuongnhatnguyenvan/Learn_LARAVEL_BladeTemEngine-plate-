@@ -8,6 +8,7 @@
 @endsection
 @section('content')
 <h1>San  pham</h1>
+<x-package-alert />
 @push('scripts')
     <script>
     console.log('Push lan 2');
