@@ -33,4 +33,13 @@ class HomeController extends Controller
         return 'Phuong thuc PUT';
         dd($request);
     }
+
+    public function getArr(){
+        $contentArr = [
+            'name'=>'Laravel-10x',
+            'lesson'=> 'Khoa hoc lap trinh Laravel',
+            'academy'=> 'Unicode'
+        ];
+        return $contentArr;
+    }
 }
