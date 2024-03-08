@@ -14,8 +14,8 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-Route::get('/', [HomeController::class, 'index'])->name('home');
 */
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/san-pham', [HomeController::class, 'products'])->name('product');
 Route::get('/them-san-pham', [HomeController::class, 'getAdd']);
@@ -48,3 +48,6 @@ Route::post('/demo-response', function (Request $request) {
     }
     return redirect(route('demo-response'))->with('mess', 'Valida ko thanh cong');
 });
+
+Route::get('/download-image', [HomeController::class, 'downloadImage'])->name('download-image');
+Route::get('/download-doc', [HomeController::class, 'downloadDoc'])->name('download-doc');
