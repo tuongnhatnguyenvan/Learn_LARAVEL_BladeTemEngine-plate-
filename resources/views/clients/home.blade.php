@@ -22,6 +22,13 @@
         <p>Moi truong dev</p>
     @endenv
     <x-alert type="info" :content="$message" data-icon="youtube"/>
+    <p><img src="https://bs.uenicdn.com/blog/wp-content/uploads/2018/04/giphy.gif" alt="tym"></p>
+    <p><a href="{{route('download-image').'?image=' .public_path('storage/bg.jpg')}}" class="btn btn-primary">Download image</a></p>
+
+    <p><a href="{{route('download-doc').'?file=' .public_path('storage/Cv_TuongNhat_backend_PNV25B.pdf')}}" class="btn btn-primary">Download doc</a></p>
+
+
+
 
     {{-- <x-button /> --}}
     {{-- <x-inputs.button /> --}}
@@ -30,7 +37,12 @@
 @endsection
 
 @section('css')
-
+    <style>
+        img{
+            max-width: 100%;
+            height: auto
+        }
+    </style>
 @endsection
 
 @section('js')
