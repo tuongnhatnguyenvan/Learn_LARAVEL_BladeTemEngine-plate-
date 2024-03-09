@@ -22,11 +22,27 @@ class HomeController extends Controller
 
     public function getAdd(){
         $this->data['title'] = 'Them san pham';
+        $this->data['error_message'] = 'Kiem tra lai du lieu';
         return view('clients.add', $this->data);
     }
 
     public function postAdd(Request $request){
-        dd($request);
+        $rule =[
+            'product_name' =>'required|min:5|max:100',
+            'product_price' =>'required|integer',
+            ];
+        // $message = [
+        //     'product_name.required' => ' Truong :attribute Ban chua nhap ten san pham',
+        //     'product_name.min' => 'Ten san pham phai co do dai tu 5 den 100 ki tu',
+        //     'product_price.required' => 'Ban chua nhap gia san pham',
+        //     'product_price.integer' => 'Gia san pham phai la so nguyen',
+        // ];
+        $message = [
+            'required' => 'Truong :attribute bat buoc phai nhap',
+            'min' => 'Truong :attribute phai co do dai tu :min den :max ki tu',
+            'integer' => 'Truong :attribute phai la so nguyen',
+        ];
+        $request->validate($rule, $message);
     }
 
     public function putAdd(Request $request){
