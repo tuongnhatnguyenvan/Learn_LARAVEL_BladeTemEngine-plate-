@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class HomeController extends Controller
 {
@@ -26,23 +27,24 @@ class HomeController extends Controller
         return view('clients.add', $this->data);
     }
 
-    public function postAdd(Request $request){
-        $rule =[
-            'product_name' =>'required|min:5|max:100',
-            'product_price' =>'required|integer',
-            ];
+    public function postAdd(ProductRequest $request){
+        // $rule =[
+        //     'product_name' =>'required|min:5|max:100',
+        //     'product_price' =>'required|integer',
+        //     ];
         // $message = [
-        //     'product_name.required' => ' Truong :attribute Ban chua nhap ten san pham',
-        //     'product_name.min' => 'Ten san pham phai co do dai tu 5 den 100 ki tu',
-        //     'product_price.required' => 'Ban chua nhap gia san pham',
-        //     'product_price.integer' => 'Gia san pham phai la so nguyen',
+            // 'product_name.required' => ' Truong :attribute Ban chua nhap ten san pham',
+            // 'product_name.min' => 'Ten san pham phai co do dai tu 5 den 100 ki tu',
+            // 'product_price.required' => 'Ban chua nhap gia san pham',
+            // 'product_price.integer' => 'Gia san pham phai la so nguyen',
         // ];
-        $message = [
-            'required' => 'Truong :attribute bat buoc phai nhap',
-            'min' => 'Truong :attribute phai co do dai tu :min den :max ki tu',
-            'integer' => 'Truong :attribute phai la so nguyen',
-        ];
-        $request->validate($rule, $message);
+        // $message = [
+        //     'required' => 'Truong :attribute bat buoc phai nhap',
+        //     'min' => 'Truong :attribute phai co do dai tu :min den :max ki tu',
+        //     'integer' => 'Truong :attribute phai la so nguyen',
+        // ];
+        // $request->validate($rule, $message);
+        dd($request);
     }
 
     public function putAdd(Request $request){
