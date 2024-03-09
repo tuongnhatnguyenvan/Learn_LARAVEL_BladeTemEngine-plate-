@@ -6,15 +6,9 @@
 @section('content')
     <h1>Them san pham</h1>
     <form action="" method="POST">
-        @if ($errors->any())
-            <div class="alert alert-danger text-center">
-                {{-- @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-                @endforeach --}}
-                {{-- Vui long kiem tra lai du lieu --}}
-                <p>{{ $error_message }}</p>
-            </div>
-        @endif
+       @error('msg')
+           <div class="alert alert-danger text-center">{{$message}}</div>
+       @enderror
         <div class="mb-3">
             <label for="">Ten san pham</label>
             <input type="text" name="product_name" placeholder="Ten san pham..." value="{{old('product_name')}}" id="" class="form-control">
