@@ -7,6 +7,9 @@
     <h3>Products sidebar</h3>
 @endsection
 @section('content')
+    @if (session('msg'))
+        <div class="alert alert-success">{{session('msg')}}</div>
+    @endif
 <h1>San  pham</h1>
 <x-package-alert />
 @push('scripts')
