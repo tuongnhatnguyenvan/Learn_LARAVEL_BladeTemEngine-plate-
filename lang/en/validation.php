@@ -150,6 +150,7 @@ return [
     'url' => 'The :attribute must be a valid URL.',
     'ulid' => 'The :attribute must be a valid ULID.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'uppercase' => 'Truong :attribute khong hop le.',
 
     /*
     |--------------------------------------------------------------------------
@@ -165,6 +166,12 @@ return [
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
+        ],
+        'product_name' => [
+            'uppercase' => 'Ten san pham phai viet hoa',
+        ],
+        'product_price' => [
+            'uppercase' => 'Gia san pham phai viet hoa',
         ],
     ],
 
