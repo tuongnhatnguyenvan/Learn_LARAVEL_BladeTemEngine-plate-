@@ -34,9 +34,14 @@ class HomeController extends Controller
     public function postAdd(Request $request)
     {
         $rule = [
-            'product_name' => ['required','min:5','max:100', new Uppercase],
+            'product_name' => ['required', 'min:5', 'max:100', function ($attributes, $value, $fail) {
+                // if ($value != mb_strtoupper($value, 'UTF-8')) {
+                //     $fail('truong :attribute khong hop le');
+                // }
+                isUppercase($value, 'truong :attribute khong hop le', $fail);
+            }],
+            'product_price' => ['required', 'integer',],
             // 'product_name' => 'required|min:5|max:100'.(new Uppercase),
-            'product_price' => ['required', 'integer', new Uppercase],
         ];
         // $message = [
         //     'product_name.required' => 'Ban chua nhap ten san pham',
@@ -58,7 +63,7 @@ class HomeController extends Controller
         $validatior = Validator::make($request->all(), $rule, $message);
         // $validatior->validate();
         if ($validatior->fails()) {
-            $validatior->errors()->add('msg','Vui long kiem tra lai du lieu');
+            $validatior->errors()->add('msg', 'Vui long kiem tra lai du lieu');
             // return 'Validate that bai';
         } else {
             // return 'Validate thanh cong';
