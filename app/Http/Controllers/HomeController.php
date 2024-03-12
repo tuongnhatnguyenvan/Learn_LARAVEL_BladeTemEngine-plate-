@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\Uppercase;
+use Illuminate\Support\Facades\DB;
+
 
 class HomeController extends Controller
 {
@@ -15,7 +17,10 @@ class HomeController extends Controller
     {
         $this->data['title'] = 'Dao tao lap trinh web';
         $this->data['message'] = 'Dang ky tai khoan thanh cong';
-        return view('clients/home', $this->data);
+
+        $users = DB::select('SELECT * FROM users WHERE email = :email', ['email' => 'rady@gmail.com']);   
+
+        dd($users);
     }
 
     public function products()
