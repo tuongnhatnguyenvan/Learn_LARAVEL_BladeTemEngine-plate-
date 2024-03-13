@@ -30,7 +30,7 @@
                         <td>{{ $item->email }}</td>
                         <td>{{ $item->create_at }}</td>
                         <td><a href="{{ route('users.edit', $item->id) }}" class="btn btn-primary">Edit</a></td>
-                        {{-- <td><a href="{{route('users.delete', $item->id)}}" class="btn btn-danger">Delete</a></td> --}}
+                        <td><a onclick="return comfirm('Ban co chac ko')" href="{{route('users.delete', $item->id)}}" class="btn btn-danger">Delete</a></td>
                     </tr>
                 @endforeach
             @else

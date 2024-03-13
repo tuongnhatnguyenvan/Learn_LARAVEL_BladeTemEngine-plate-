@@ -15,6 +15,10 @@ class UserController extends Controller
 
     public function index()
     {
+        $statement = $this->users->statementUser('DELETE FROM users');
+        // $statement = $this->users->statementUser('SELECT * FROM users');
+        dd($statement);
+
         $title = 'Danh sách người dùng';
         $users = new Users();
         $userList = $this->users->getAllUsers();
@@ -52,7 +56,7 @@ class UserController extends Controller
         return redirect(route('users.index'))->with('msg', 'Them thanh cong');
     }
 
-        public function getEdit(Request $request, $id)
+    public function getEdit(Request $request, $id)
     {
         $title = 'Cap nhat thông tin người dùng';
         if (!empty($id)) {
@@ -60,7 +64,7 @@ class UserController extends Controller
             if (!empty($userDetail)) {
                 $request->session()->put('id', $id);
                 $userDetail = $userDetail[0];
-            } else {    
+            } else {
                 return redirect()->route('users.index')->with('msg', 'Nguoi dung khong ton tai');
             }
         } else {
@@ -99,4 +103,23 @@ class UserController extends Controller
         return back()->with('msg', 'Cap nhat thanh cong');
     }
 
+    public function delete($id)
+    {
+        if (!empty($id)) {
+            $userDetail = $this->users->getDetail($id);
+            if (!empty($userDetail)) {
+                $deleteStatus = $this->users->deleteUser($id);
+                if ($deleteStatus) {
+                    $msg = 'Xoa thanh cong';
+                } else {
+                    $msg = 'Ban ko the xoa nguoi dung nay';
+                }
+            } else {
+                $msg = 'Nguoi dung khong ton tai';
+            }
+        } else {
+            $msg = 'Lien ket khong ton tai';
+        }
+        return redirect()->route('users.index')->with('msg', $msg);
+    }
 }
