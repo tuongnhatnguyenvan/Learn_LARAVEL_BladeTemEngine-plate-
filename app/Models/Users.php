@@ -34,17 +34,30 @@ class Users extends Model
         return DB::update('UPDATE ' . $this->table . ' SET fullname = ?, email = ?, update_at = ? WHERE id = ?', $data);
     }
 
-    public function deleteUser($id){
+    public function deleteUser($id)
+    {
         return DB::delete("DELETE FROM $this->table WHERE id =?", [$id]);
     }
 
-    public function statementUser($sql){
+    public function statementUser($sql)
+    {
         return DB::statement($sql);
     }
 
-    public function learnQueryBuilder(){
+    public function learnQueryBuilder()
+    {
+        DB::enableQueryLog();
+        $id = 2;
         $list = DB::table($this->table)
-        ->select('fullname as hoten','email','id')
+            ->select('fullname as hoten', 'email', 'id', 'update_at')
+            // ->where('id', 'like', '%1%')
+            // ->whereNotIn('id', [1, 3])
+            // ->whereIn('id', [1, 3])
+            // ->whereNotBetween('id', [1, 3])
+            // ->whereBetween('id', [1, 3])
+            // ->whereNull('update_at')    
+            ->whereNotNull('update_at')    
+            ->get();
         // ->where('id', '>', 1)   
         // ->where('id', '<>', 8)
         // ->where('id', '>=', 8)
@@ -55,11 +68,18 @@ class Users extends Model
         //     'id'=> '8',
         //     'fullname'=> 'Nguyễn Văn Tường Nu',
         // ])
-        ->where('id', 8)
-        ->orWhere('id', 9)
-        ->get();
+        // ->where('id', 1)
+        // ->orWhere('id', 2)
+        // ->toSql();
+        // ->where('id', 0)
+        // // ->where('id','<',2)
+        // ->where(function ($query) use ($id) {
+        //     $query->where('id', '<', $id)->orWhere('id', '>', $id);
+        // })
+
         dd($list);
+        $sql = DB::getQueryLog();
+        // dd($sql);
         $detail = DB::table($this->table)->first();
-        // dd($detail);
     }
 }
