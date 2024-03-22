@@ -47,17 +47,19 @@ class Users extends Model
     public function learnQueryBuilder()
     {
         DB::enableQueryLog();
-        $id = 2;
-        $list = DB::table($this->table)
-            ->select('fullname as hoten', 'email', 'id', 'update_at')
+        // $id = 2;
+        // $list = DB::table($this->table)
+        //     ->select('fullname as hoten', 'email', 'id', 'update_at','create_at')
             // ->where('id', 'like', '%1%')
             // ->whereNotIn('id', [1, 3])
             // ->whereIn('id', [1, 3])
             // ->whereNotBetween('id', [1, 3])
             // ->whereBetween('id', [1, 3])
             // ->whereNull('update_at')    
-            ->whereNotNull('update_at')    
-            ->get();
+            // ->whereNotNull('update_at')    
+            // ->whereYear('create_at', '2024')
+            // ->whereColumn('create_at', 'update_at') 
+            // ->get();
         // ->where('id', '>', 1)   
         // ->where('id', '<>', 8)
         // ->where('id', '>=', 8)
@@ -76,7 +78,12 @@ class Users extends Model
         // ->where(function ($query) use ($id) {
         //     $query->where('id', '<', $id)->orWhere('id', '>', $id);
         // })
-
+        
+        //Join bang
+        $list = DB::table('users')
+        ->select('users.*', 'groups.name as group_name')
+        ->rightJoin('groups','users.group_id','=','groups.id')
+        ->get();
         dd($list);
         $sql = DB::getQueryLog();
         // dd($sql);
