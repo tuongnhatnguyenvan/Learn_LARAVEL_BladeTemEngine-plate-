@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -81,8 +82,19 @@ class Users extends Model
         
         //Join bang
         $list = DB::table('users')
-        ->select('users.*', 'groups.name as group_name')
-        ->rightJoin('groups','users.group_id','=','groups.id')
+        // ->select('users.*', 'groups.name as group_name')
+        // ->rightJoin('groups','users.group_id','=','groups.id')
+        // ->orderBy('create_at', 'desc')
+        // ->orderBy('id', 'desc')
+        // ->inRandomOrder()
+        ->select(DB::raw('count(id) as email_count'), 'email', 'fullname')
+        ->groupBy('email')  
+        // ->having('email_count', '>=', 1)
+        ->groupBy('fullname')
+        // ->limit(1)
+        // ->offset(1)
+        ->take(2)
+        ->skip(2)
         ->get();
         dd($list);
         $sql = DB::getQueryLog();
