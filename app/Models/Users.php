@@ -131,14 +131,40 @@ class Users extends Model
         // ->delete();
 
         //dem bang ghi
-        $count = DB::table('users')
-        ->where('id','>',3)
-        ->count();
+        // $count = DB::table('users')
+        // ->where('id','>',3)
+        // ->count();
+        // dd($count);
 
-        dd($count);
+        $list = DB::table('users')
+            // ->selectRaw('fullname, email, count(id) as email_count')
+            // ->select(DB::raw('fullname, email'))
+            // ->groupBy('email')
+            // ->groupBy('fullname')
+            // ->where(DB::raw('id>2'))
+            // ->orWhereRaw('id>?', [`2`])
+            // ->orderByRaw('create_at DESC , update_at ASC')
+            // ->groupByRaw('fullname, email')
+            // ->havingRaw('email_count >= 1')
+
+            // ->where(
+            //     'group_id',
+            //     '=',
+            //     function ($query) {
+            //         $query->select('id')
+            //             ->from('groups')
+            //             ->where('name', '=', 'Admin');
+            //     }
+            // )
+
+            // ->select('email', DB::raw('(SELECT count(id) FROM `groups`) as group_count'))
+            ->selectRaw('email, (SELECT count(id) FROM `groups`) as group_count')
+            ->get();
+
+        dd($list);
 
         $sql = DB::getQueryLog();
-        // dd($sql);
+        dd($sql);
         $detail = DB::table($this->table)->first();
     }
 }
