@@ -17,7 +17,7 @@
     <main class="py-5">
         <div class="container">
             <div class="row">
-                <div class="col-4">
+                <div class="col-2">
                     <aside>
                         @section('sidebar')
                             @include('clients.blocks.sidebar')
