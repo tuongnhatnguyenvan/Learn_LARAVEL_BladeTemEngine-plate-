@@ -46,11 +46,11 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
+                <th><a href="?sort-by=fullname&sort-type={{$sortType}}">Name</a></th>
+                <th><a href="?sort-by=email&sort-type={{$sortType}}">Email</a></th>
                 <th>Nhom</th>
                 <th>Trang thai</th>
-                <th>Time</th>
+                <th><a href="?sort-by=create_at&sort-type={{$sortType}}">Time</a></th>
                 <th class="width:5%;">Edit</th>
                 <th class="width:5%;">Delete</th>
             </tr>

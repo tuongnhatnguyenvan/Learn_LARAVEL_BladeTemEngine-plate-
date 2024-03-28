@@ -45,8 +45,27 @@ class UserController extends Controller
             $keyWord = $request->keywords;
         }
 
-        $userList = $this->users->getAllUsers($filters, $keyWord);
-        return view('clients.users.lists', compact('title', 'userList'));
+        $sortBy = $request->input('sort-by');
+        $sortType = $request->input('sort-type');
+        $allowSort = ['DESC', 'ASC'];
+
+        if (!empty($sortType) && in_array($sortType, $allowSort)) {
+            if ($sortType == 'DESC') {
+                $sortType = 'ASC';
+            } else {
+                $sortType = 'DESC';
+            }
+        }else{
+            $sortType = 'ASC';
+        }
+
+        $sortArr = [
+            'sortBy' => $sortBy,
+            'sortType' => $sortType,
+        ];
+
+        $userList = $this->users->getAllUsers($filters, $keyWord, $sortArr);
+        return view('clients.users.lists', compact('title', 'userList', 'sortType'));
     }
 
     public function add()
