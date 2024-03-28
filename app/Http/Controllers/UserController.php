@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Users;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
     private $users;
-    const _PER_PAGE = 3 ;
+    const _PER_PAGE = 3;
     public function __construct()
     {
         $this->users = new Users();
     }
 
-    public function index(Request $request)
+    public function index(UserRequest $request)
     {
         // $statement = $this->users->statementUser('DELETE FROM users');
         // $statement = $this->users->statementUser('SELECT * FROM users');
@@ -57,7 +58,7 @@ class UserController extends Controller
             } else {
                 $sortType = 'DESC';
             }
-        }else{
+        } else {
             $sortType = 'ASC';
         }
 
@@ -79,29 +80,6 @@ class UserController extends Controller
 
     public function postAdd(Request $request)
     {
-        $request->validate(
-            [
-                'fullname' => 'required|min:5',
-                'email' => 'required|email|unique:users',
-                'group_id' =>['required','integer', function($attribute, $value, $fail ){
-                    if($value == 0){
-                        $fail('Bat buoc chon nhom');
-                    }
-                }],
-                'status' =>'required|integer',
-            ],
-            [
-                'fullname.required' => 'Ho va ten bat buoc phai nhap',
-                'fullname.min' => 'Ho va ten phai lon hon 5 ki tu',
-                'email.required' => 'Email bat buoc phai nhap',
-                'email.email' => 'Email khong dung dinh dang',
-                'email.unique' => 'Email da ton tai',
-                'group_id.required' => 'Nhom ko duoc de trong',
-                'group_id.integer' => 'Nhom ko hop le',
-                'status.required' => 'Trang thai bat buoc phai nhap',
-                'status.integer' => 'Trang thai ko hop le',
-            ]
-        );
 
         $dataInsert = [
             // $request->fullname,
@@ -131,10 +109,12 @@ class UserController extends Controller
         } else {
             return redirect()->route('users.index')->with('msg', 'Lien ket khong ton tai');
         }
-        return view('clients.users.edit', compact('title', 'userDetail'));
+        $allGroups  = getAllGroups();
+
+        return view('clients.users.edit', compact('title', 'userDetail', 'allGroups'));
     }
 
-    public function postEdit(Request $request)
+    public function postEdit(UserRequest $request)
     {
         $id = $request->session()->get('id');
 
@@ -142,26 +122,17 @@ class UserController extends Controller
             return back()->with('msg', 'Nguoi dung khong ton tai');
         }
 
-        $request->validate([
-            'fullname' => 'required|min:5',
-            'email' => 'required|email|unique:users,email,' . $id,
-        ], [
-            'fullname.required' => 'Ho va ten bat buoc phai nhap',
-            'fullname.min' => 'Ho va ten phai lon hon 5 ki tu',
-            'email.required' => 'Email bat buoc phai nhap',
-            'email.email' => 'Email khong dung dinh dang',
-            'email.unique' => 'Email da ton tai'
-        ]);
-
         $dataUpdate = [
-            $request->fullname,
-            $request->email,
-            date('Y-m-d H:i:s')
+            'fullname' => $request->fullname,
+            'email' => $request->email,
+            'group_id' => $request->group_id,
+            'status' => $request->status,
+            'update_at' => date('Y-m-d H:i:s'),
         ];
 
         $this->users->updateUser($dataUpdate, $id);
 
-        return back()->with('msg', 'Cap nhat thanh cong');
+        return back()->with('msg', 'Cap nhat nguoi dung      thanh cong');
     }
 
     public function delete($id)
