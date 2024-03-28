@@ -23,12 +23,12 @@ class Users extends Model
 
         $orderBy = 'users.create_at';
         $orderType = 'desc';
-        if(!empty($sortArr) && is_array($sortArr)){
-            if(!empty($sortArr['sortBy']) && !empty($sortArr['sortType'])){
+        if (!empty($sortArr) && is_array($sortArr)) {
+            if (!empty($sortArr['sortBy']) && !empty($sortArr['sortType'])) {
                 $orderBy = trim($sortArr['sortBy']);
                 $orderType = trim($sortArr['sortType']);
             }
-        }    
+        }
         $users = $users->orderBy($orderBy, $orderType);
 
 
@@ -45,7 +45,7 @@ class Users extends Model
 
         if (!empty($perPage)) {
             $users = $users->paginate($perPage)->withQueryString();
-        }else{
+        } else {
             $users = $users->get();
         }
 
@@ -55,7 +55,8 @@ class Users extends Model
 
     public function addUser($data)
     {
-        DB::insert('INSERT INTO users (fullname, email, create_at) VALUES (?,?,?)', $data);
+        // DB::insert('INSERT INTO users (fullname, email, create_at) VALUES (?,?,?)', $data);
+        return DB::table($this->table)->insert($data);
     }
 
     public function getDetail($id)
