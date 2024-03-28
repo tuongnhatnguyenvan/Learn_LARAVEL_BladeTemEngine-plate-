@@ -46,11 +46,11 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th><a href="?sort-by=fullname&sort-type={{$sortType}}">Name</a></th>
-                <th><a href="?sort-by=email&sort-type={{$sortType}}">Email</a></th>
+                <th><a href="?sort-by=fullname&sort-type={{ $sortType }}">Name</a></th>
+                <th><a href="?sort-by=email&sort-type={{ $sortType }}">Email</a></th>
                 <th>Nhom</th>
                 <th>Trang thai</th>
-                <th><a href="?sort-by=create_at&sort-type={{$sortType}}">Time</a></th>
+                <th><a href="?sort-by=create_at&sort-type={{ $sortType }}">Time</a></th>
                 <th class="width:5%;">Edit</th>
                 <th class="width:5%;">Delete</th>
             </tr>
@@ -84,4 +84,7 @@
             @endif
         </tbody>
     </table>
+    <div class="d-flex justify-content-end">
+        {{ $userList->links() }}
+    </div>
 @endsection
